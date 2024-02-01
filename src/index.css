@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/font/NotoSans-VariableFont_wdth\,wght.ttf");
+}
+
+/* .progress-bar {
+  background:
+    radial-gradient(closest-side, #543A48 79%, transparent 80% 100%),
+    conic-gradient(pink 2%, hotpink 0);
+} */
