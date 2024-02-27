@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import { state } from '../App';
 
-type WalkingProps = {
-	setState: React.Dispatch<React.SetStateAction<'welcome' | 'running' | 'walking'>>;
+type RunProps = {
+	setState: React.Dispatch<React.SetStateAction<state>>;
 };
 
-function Walking({ setState }: WalkingProps) {
-	const [seconds, setSeconds] = useState(5);
+function Run({ setState }: RunProps) {
+	const [seconds, setSeconds] = useState(180);
 	const minutes = Math.floor(seconds / 60);
 	const progress = 100 - (seconds / 180) * 100;
 
@@ -19,19 +20,20 @@ function Walking({ setState }: WalkingProps) {
 	}, [seconds]);
 
 	return (
+		// TODO: add h1 that says Run lol
 		<main className="relative grid flex-1 place-items-center">
-			<p className="text-9xl text-blue">
+			<p className="text-9xl text-red">
 				{minutes}:{`${seconds - minutes * 60}`.padStart(2, '0')}
 			</p>
 			<div
 				className={`absolute -z-10 h-96 w-96 rounded-full`}
 				style={{
-					background: `radial-gradient(closest-side,#2D353B 95%,transparent 96% 100%),conic-gradient(#3A515D ${progress}%,#7FBBB3 0)`,
+					background: `radial-gradient(closest-side,#2D353B 95%,transparent 96% 100%),conic-gradient(#543A48 ${progress}%,#E67E80 0)`,
 				}}
 			></div>
-			<div className="absolute bottom-[35%] flex text-blue">
+			<div className="absolute bottom-[35%] flex text-red">
 				<svg
-					className={`h-12 w-12 scale-x-[-1] opacity-0 transition-all ${(seconds % 4 === 0 || seconds % 4 === 1) && 'opacity-100'}`}
+					className={`h-12 w-12 scale-x-[-1] opacity-0 ${seconds % 2 === 0 && 'opacity-100'} transition-all`}
 					width="800px"
 					height="800px"
 					viewBox="0 0 48 48"
@@ -51,7 +53,7 @@ function Walking({ setState }: WalkingProps) {
 					</g>
 				</svg>
 				<svg
-					className={`h-12 w-12 opacity-0 transition-all ${(seconds % 4 === 2 || seconds % 4 === 3 || seconds === 0) && 'opacity-100'}`}
+					className={`h-12 w-12 opacity-0 ${(seconds % 2 !== 0 || seconds === 0) && 'opacity-100'} transition-all`}
 					width="800px"
 					height="800px"
 					viewBox="0 0 48 48"
@@ -79,4 +81,4 @@ function Walking({ setState }: WalkingProps) {
 	);
 }
 
-export default Walking;
+export default Run;

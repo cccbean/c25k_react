@@ -1,21 +1,61 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header';
-import Welcome from './components/Welcome';
-import Running from './components/Running';
-import Walking from './components/Walking';
+import Begin from './components/Begin';
+import End from './components/End';
+import Timer from './components/Timer';
+import { c25kPlan } from './lib/c25k';
+
+export type state = 'begin' | 'walk' | 'run' | 'end';
+export type session = {
+	routine: ['w' | 'r', number][];
+	duration: number;
+};
+export type user = {
+	name: string;
+	sessionIndex: number;
+	lastRun: Date | null;
+	firstTime: boolean;
+};
 
 function App() {
-	const [state, setState] = useState<'welcome' | 'running' | 'walking'>('running');
+	console.log(c25kPlan.length);
+	const [user, setUser] = useState<user>(() => {
+		const savedUser = localStorage.getItem('user');
+		if (savedUser) {
+			return JSON.parse(savedUser);
+		} else {
+			return { name: '', sessionIndex: 0, lastRun: null, firstTime: true };
+		}
+	});
+	const [state, setState] = useState<state>('begin');
+	const [routineIndex, setRoutineIndex] = useState(0);
+	const session = c25kPlan[user.sessionIndex];
+
+	useEffect(() => {
+		// save to local storage
+		console.log(user);
+		localStorage.setItem('user', JSON.stringify(user));
+	}, [user]);
 
 	return (
-		<>
-			<div className={`flex flex-col h-screen ${state === 'welcome' && 'text-fg'} ${state === 'running' && 'text-red border-red'} ${state === 'walking' && 'text-blue border-blue'}`}>
-				<Header />
-				{state === 'welcome' && <Welcome setState={setState} />}
-				{state === 'running' && <Running setState={setState} />}
-				{state === 'walking' && <Walking setState={setState} />}
-			</div>
-		</>
+		<div
+			className={`flex h-screen flex-col ${state === 'begin' && 'text-fg'} ${state === 'run' && ' text-red'} ${state === 'walk' && 'text-blue'}`}
+		>
+			<Header />
+			{state === 'begin' && (
+				<Begin setState={setState} user={user} setUser={setUser} session={session} />
+			)}
+			{(state === 'walk' || state === 'run') && (
+				<Timer
+					state={state}
+					setState={setState}
+					session={session}
+					routineIndex={routineIndex}
+					setRoutineIndex={setRoutineIndex}
+				/>
+			)}
+			{state === 'end' && <End setUser={setUser} />}
+		</div>
 	);
 }
 
