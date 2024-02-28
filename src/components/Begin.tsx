@@ -11,10 +11,9 @@ type BeginProps = {
 
 function Begin({ setState, user, setUser, session }: BeginProps) {
 	const [name, setName] = useState('');
-	const [quote, setQuote] = useState(() => {
-		const quoteIndex = Math.floor(Math.random() * beginQuotes.length);
-		return beginQuotes[quoteIndex];
-	});
+
+	const quoteIndex = Math.floor(Math.random() * beginQuotes.length);
+	const quote = beginQuotes[quoteIndex]
 
 	const onSubmit = () => {
 		setUser((prevUser) => ({

@@ -20,7 +20,6 @@ export type user = {
 function App() {
 	// in case of emergency
 	// localStorage.clear();
-	console.log(c25kPlan.length);
 	const [user, setUser] = useState<user>(() => {
 		const savedUser = localStorage.getItem('user');
 		if (savedUser) {
@@ -34,7 +33,6 @@ function App() {
 	const session = c25kPlan[user.sessionIndex];
 
 	useEffect(() => {
-		// save to local storage
 		console.log(user);
 		localStorage.setItem('user', JSON.stringify(user));
 	}, [user]);

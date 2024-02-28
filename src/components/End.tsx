@@ -8,14 +8,11 @@ type EndProps = {
 };
 
 function End({ setUser }: EndProps) {
-	const [emoji, setEmoji] = useState(() => {
-		const emojiIndex = Math.floor(Math.random() * textEmojis.length);
-		return textEmojis[emojiIndex];
-	});
-	const [quote, setQuote] = useState(() => {
-		const quoteIndex = Math.floor(Math.random() *endQuotes.length);
-		return endQuotes[quoteIndex];
-	});
+	const emojiIndex = Math.floor(Math.random() * textEmojis.length);
+	const emoji = textEmojis[emojiIndex]
+
+	const quoteIndex = Math.floor(Math.random() *endQuotes.length);
+	const quote = endQuotes[quoteIndex]
 
 	// FIXME: currently runs twice bc of strict mode so sessionIndex goes up twice instead of once
 	useEffect(() => {
