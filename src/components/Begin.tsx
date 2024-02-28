@@ -35,8 +35,10 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 							value={name}
 							onChange={(e) => setName(e.target.value)}
 						/>
+						{/* TODO: change buttons to have prettier colors */}
+						{/* TODO: extract button to its own component */}
 						<button
-							className="rounded-full border border-fg px-4 py-2 font-bold hover:bg-fg hover:text-bg0"
+							className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
 							type="submit"
 						>
 							Save
@@ -57,13 +59,14 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 					<p>Duration: {Math.ceil(session.duration / 60)} minutes</p>
 					<p>Inspirational quote</p>
 					<button
-						className="rounded-full border border-fg px-4 py-2 font-bold hover:bg-fg hover:text-bg0"
+						className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
 						onClick={() => setState('walk')}
 					>
 						Begin
 					</button>
+					{/* TODO: just for dev, move to settings tho */}
 					<button
-						className="rounded-full border border-fg px-4 py-2 font-bold hover:bg-fg hover:text-bg0"
+						className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
 						onClick={() => {
 							localStorage.clear();
 							location.reload();

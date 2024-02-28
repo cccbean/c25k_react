@@ -54,7 +54,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 				<div
 					className={`absolute -z-10 h-96 w-96 rounded-full`}
 					style={{
-						background: `radial-gradient(closest-side,#2D353B 95%,transparent 96% 100%),conic-gradient(#3A515D ${progress}%,#7FBBB3 0)`,
+						background: `radial-gradient(closest-side,#1E1E2E 95%,transparent 96% 100%),conic-gradient(#89B4FA4D ${progress}%,#89B4FA 0)`,
 					}}
 				></div>
 			)}
@@ -63,7 +63,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 				<div
 					className={`absolute -z-10 h-96 w-96 rounded-full`}
 					style={{
-						background: `radial-gradient(closest-side,#2D353B 95%,transparent 96% 100%),conic-gradient(#543A48 ${progress}%,#E67E80 0)`,
+						background: `radial-gradient(closest-side,#1E1E2E 95%,transparent 96% 100%),conic-gradient(#F38BA84D ${progress}%,#F38BA8 0)`,
 					}}
 				></div>
 			)}

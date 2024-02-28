@@ -39,7 +39,7 @@ function App() {
 
 	return (
 		<div
-			className={`flex h-screen flex-col ${state === 'begin' && 'text-fg'} ${state === 'run' && ' text-red'} ${state === 'walk' && 'text-blue'}`}
+			className={`flex h-screen flex-col ${state === 'run' && ' text-red'} ${state === 'walk' && 'text-blue'}`}
 		>
 			<Header />
 			{state === 'begin' && (

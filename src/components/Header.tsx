@@ -35,7 +35,7 @@ function Header() {
 					</clipPath>
 				</defs>
 			</svg>
-			<button className="rounded-full border border-bg3 bg-bg3 p-2 transition-all hover:bg-bg0 focus:bg-bg0 active:scale-95" onClick={() => {
+			<button className="" onClick={() => {
 				const body = document.body;
 				body.style.transform = 'translateX(-80%)'
 			}}>
