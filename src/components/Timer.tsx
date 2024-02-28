@@ -81,7 +81,6 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 	}, [animationP, state]);
 
 	return (
-		// FIXME: timer has a fixed width and height which can go off screen
 		<main className="relative grid flex-1 place-items-center">
 			<div className="flex flex-col gap-6">
 				<h1 className="text-center text-4xl">{state === 'walk' ? 'Walk' : 'Run'}</h1>
@@ -97,7 +96,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 
 			{state === 'walk' && (
 				<div
-					className={`absolute -z-10 h-96 w-96 rounded-full`}
+					className={`absolute -z-10 h-[95vw] w-[95vw] rounded-full`}
 					style={{
 						background: `radial-gradient(closest-side,#1E1E2E 95%,transparent 96% 100%),conic-gradient(#89B4FA4D ${progress}%,#89B4FA 0)`,
 					}}
@@ -106,7 +105,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 
 			{state === 'run' && (
 				<div
-					className={`absolute -z-10 h-96 w-96 rounded-full`}
+					className={`absolute -z-10 h-[95vw] w-[95vw] rounded-full`}
 					style={{
 						background: `radial-gradient(closest-side,#1E1E2E 95%,transparent 96% 100%),conic-gradient(#F38BA84D ${progress}%,#F38BA8 0)`,
 					}}
