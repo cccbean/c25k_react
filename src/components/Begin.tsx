@@ -31,7 +31,7 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 				<div className="px-4">
 					<h1 className="py-8 text-center text-3xl">Welcome to c25k!</h1>
 					<form className="flex flex-col gap-6" action="" onSubmit={onSubmit}>
-						<div className='flex flex-col gap-2'>
+						<div className="flex flex-col gap-2">
 							<label className="text-lg" htmlFor="name">
 								Name (optional):
 							</label>
@@ -59,18 +59,15 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 	} else {
 		return (
 			<main className="flex-1 md:w-96 md:self-center">
-				<div className='px-4'>
+				<div className="px-4">
 					<h1 className="py-8 text-center text-3xl">
-						{/* FIXME: make this look nicer */}
-						Welcome
-						{user.sessionIndex > 0 && user.name
-							? ` back, ${user.name}`
-							: user.sessionIndex > 0
-								? ' back'
+						{user.sessionIndex === 0 && user.name
+							? `Welcome, ${user.name}!`
+							: user.sessionIndex === 0
+								? 'Welcome!'
 								: user.name
-									? ` ${user.name}`
-									: ''}
-						!
+									? `Welcome back, ${user.name}`
+									: 'Welcome back!'}
 					</h1>
 
 					<div className="flex flex-col gap-2">
@@ -80,7 +77,7 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 						<p className="rounded-md bg-crust px-4 py-2 text-lg">{quote}</p>
 					</div>
 
-					<div className='flex flex-col py-8'>
+					<div className="flex flex-col py-8">
 						<button
 							className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
 							onClick={() => setState('walk')}

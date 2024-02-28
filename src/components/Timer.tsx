@@ -59,7 +59,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 						setTimeout(
 							() => {
 								span.classList.add('inline-block');
-								span.classList.add('animate-wavy-walk');
+								span.classList.add('motion-safe:animate-wavy-walk');
 							},
 							index * 60 + 200
 						);
@@ -69,7 +69,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 						setTimeout(
 							() => {
 								span.classList.add('inline-block');
-								span.classList.add('animate-wavy-run');
+								span.classList.add('motion-safe:animate-wavy-run');
 							},
 							index * 60 + 200
 						);
