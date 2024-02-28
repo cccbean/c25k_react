@@ -44,7 +44,15 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 								onChange={(e) => setName(e.target.value)}
 							/>
 						</div>
-						{/* TODO: change buttons to have prettier colors */}
+
+						<div className="rounded-md border border-mauve bg-crust px-4 py-2 text-lg">
+							<h2>Note:</h2>
+							<p>
+								Your information is saved on this device sooo if you clear your cache and cookies,
+								goodbye progress!
+							</p>
+						</div>
+
 						{/* TODO: extract button to its own component */}
 						<button
 							className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
@@ -73,10 +81,9 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 					<div className="flex flex-col gap-2">
 						<p className="text-lg">Run: {user.sessionIndex + 1}/27</p>
 						<p className="text-lg">Duration: {Math.ceil(session.duration / 60)} minutes</p>
-						{/* TODO: prob extract to its own component */}
-						
+
 						{user.sessionIndex === 0 && (
-							<div className="rounded-md border border-mauve bg-crust px-4 py-2 text-lg">
+							<div className="my-1 rounded-md border border-mauve bg-crust px-4 py-2 text-lg">
 								<h2>Instructions:</h2>
 								<p>- 3 slow hits = walk</p>
 								<p>- 2 fast hits = run</p>
@@ -84,8 +91,8 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 							</div>
 						)}
 
+						{/* TODO: prob extract quote to its own component */}
 						<p className="rounded-md bg-crust px-4 py-2 text-lg">{quote}</p>
-
 					</div>
 
 					<div className="flex flex-col py-8">

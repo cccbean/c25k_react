@@ -43,7 +43,7 @@ function App() {
 		<div
 			className={`flex h-screen flex-col ${state === 'run' && ' text-red'} ${state === 'walk' && 'text-blue'}`}
 		>
-			<Header />
+			<Header state={state} />
 			{state === 'begin' && (
 				<Begin setState={setState} user={user} setUser={setUser} session={session} />
 			)}
