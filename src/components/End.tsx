@@ -18,7 +18,7 @@ function End({ setUser }: EndProps) {
 	}, []);
 
 	return (
-		<main className="flex-1 self-center px-4 md:w-96">
+		<main className="flex-1 px-4 md:w-96 md:self-center">
 			<h1 className="py-8 text-center text-3xl">Congratulations!</h1>
 			<p className="py-1 text-lg">Good job! See you in a couple days</p>
 			{/* TODO: random text emoji */}
