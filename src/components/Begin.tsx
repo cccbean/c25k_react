@@ -22,19 +22,23 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 
 	if (user.firstTime) {
 		return (
-			<main className="grid flex-1 place-items-center">
-				<div>
-					<h1 className="text-xl">Welcome to c25k!</h1>
-					<form className="flex flex-col" action="" onSubmit={onSubmit}>
-						<label htmlFor="name">Name (optional):</label>
-						<input
-							className="rounded-full border border-current bg-inherit px-4 py-2"
-							type="text"
-							name="name"
-							id="name"
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-						/>
+			<main className="flex-1">
+				<div className="px-4">
+					<h1 className="py-8 text-center text-3xl">Welcome to c25k!</h1>
+					<form className="flex flex-col gap-6" action="" onSubmit={onSubmit}>
+						<div className='flex flex-col gap-2'>
+							<label className="text-lg" htmlFor="name">
+								Name (optional):
+							</label>
+							<input
+								className="rounded-full border border-current bg-inherit px-4 py-2"
+								type="text"
+								name="name"
+								id="name"
+								value={name}
+								onChange={(e) => setName(e.target.value)}
+							/>
+						</div>
 						{/* TODO: change buttons to have prettier colors */}
 						{/* TODO: extract button to its own component */}
 						<button
@@ -49,21 +53,31 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 		);
 	} else {
 		return (
-			<main className="grid flex-1 place-items-center">
-				<div>
-					<h1 className="text-xl">
-						Welcome{user.sessionIndex > 0 ? ' back,' : ''}
-						{user.name ? ` ${user.name}` : ''}!
+			<main className="flex-1">
+				<div className='px-4'>
+					<h1 className="py-8 text-center text-3xl">
+						{/* FIXME: make this look nicer */}
+						Welcome
+						{user.sessionIndex > 0 && user.name
+							? ` back, ${user.name}`
+							: user.sessionIndex > 0
+								? ' back'
+								: user.name
+									? ` ${user.name}`
+									: ''}
+						!
 					</h1>
-					<p>Run: {user.sessionIndex + 1}/27</p>
-					<p>Duration: {Math.ceil(session.duration / 60)} minutes</p>
-					<p>Inspirational quote</p>
-					<button
-						className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
-						onClick={() => setState('walk')}
-					>
-						Begin
-					</button>
+					<p className="text-lg py-1">Run: {user.sessionIndex + 1}/27</p>
+					<p className="text-lg py-1">Duration: {Math.ceil(session.duration / 60)} minutes</p>
+					<p className="text-lg py-1">Inspirational quote</p>
+					<div className='flex flex-col py-8'>
+						<button
+							className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
+							onClick={() => setState('walk')}
+						>
+							Begin
+						</button>
+					</div>
 					{/* TODO: just for dev, move to settings tho */}
 					<button
 						className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"

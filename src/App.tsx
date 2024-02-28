@@ -18,6 +18,8 @@ export type user = {
 };
 
 function App() {
+	// in case of emergency
+	// localStorage.clear();
 	console.log(c25kPlan.length);
 	const [user, setUser] = useState<user>(() => {
 		const savedUser = localStorage.getItem('user');

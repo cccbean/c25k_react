@@ -41,6 +41,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 	}, [routineIndex]);
 
 	return (
+		// FIXME: timer has a fixed width and height which can go off screen
 		<main className="relative grid flex-1 place-items-center">
 			<div className="flex flex-col gap-6">
 				<h1 className="text-center text-4xl">{state === 'walk' ? 'Walk' : 'Run'}</h1>

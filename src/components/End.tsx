@@ -18,10 +18,13 @@ function End({ setUser }: EndProps) {
 	}, []);
 
 	return (
-		<main className="flex-1">
-			<h1 className="text-xl">End</h1>
-			<p>You have finished</p>
-            <p>Inspirational quote 2</p>
+		<main className="flex-1 px-4">
+			<h1 className="py-8 text-center text-3xl">Congratulations!</h1>
+			<p className="text-lg py-1">Good job! See you in a couple days</p>
+			{/* TODO: random text emoji */}
+			<p className="text-lg py-1">(˵¯͒〰¯͒˵)</p>
+			{/* TODO: random quotes */}
+            <p className="text-lg py-1">Inspirational quote 2</p>
 		</main>
 	);
 }
