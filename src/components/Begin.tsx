@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { session, state, user } from '../App';
+import { beginQuotes } from '../lib/quotes';
 
 type BeginProps = {
 	setState: React.Dispatch<React.SetStateAction<state>>;
@@ -10,7 +11,11 @@ type BeginProps = {
 
 function Begin({ setState, user, setUser, session }: BeginProps) {
 	const [name, setName] = useState('');
-	// TODO: work on welcome page
+	const [quote, setQuote] = useState(() => {
+		const quoteIndex = Math.floor(Math.random() * (beginQuotes.length - 1));
+		return beginQuotes[quoteIndex];
+	});
+
 	const onSubmit = () => {
 		setUser((prevUser) => ({
 			name: name,
@@ -67,9 +72,12 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 									: ''}
 						!
 					</h1>
+
 					<p className="text-lg py-1">Run: {user.sessionIndex + 1}/27</p>
 					<p className="text-lg py-1">Duration: {Math.ceil(session.duration / 60)} minutes</p>
-					<p className="text-lg py-1">Inspirational quote</p>
+					{/* TODO: format quote, prob extract to its own component */}
+					<p className="text-lg py-1">{quote}</p>
+
 					<div className='flex flex-col py-8'>
 						<button
 							className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
