@@ -1,3 +1,4 @@
+// TODO: add more quotes
 export const beginQuotes: string[] = [
     'Every step begins with k... or something like that',
     'The best self-defense is running away',

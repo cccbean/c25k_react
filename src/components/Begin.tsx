@@ -73,8 +73,19 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 					<div className="flex flex-col gap-2">
 						<p className="text-lg">Run: {user.sessionIndex + 1}/27</p>
 						<p className="text-lg">Duration: {Math.ceil(session.duration / 60)} minutes</p>
-						{/* TODO: format quote, prob extract to its own component */}
+						{/* TODO: prob extract to its own component */}
+						
+						{user.sessionIndex === 0 && (
+							<div className="rounded-md border border-mauve bg-crust px-4 py-2 text-lg">
+								<h2>Instructions:</h2>
+								<p>- 3 slow hits = walk</p>
+								<p>- 2 fast hits = run</p>
+								<p>- good luck</p>
+							</div>
+						)}
+
 						<p className="rounded-md bg-crust px-4 py-2 text-lg">{quote}</p>
+
 					</div>
 
 					<div className="flex flex-col py-8">
