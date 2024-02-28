@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { state, user } from '../App';
+import { user } from '../App';
 
 type EndProps = {
 	setUser: React.Dispatch<React.SetStateAction<user>>;
@@ -18,13 +18,13 @@ function End({ setUser }: EndProps) {
 	}, []);
 
 	return (
-		<main className="flex-1 px-4">
+		<main className="flex-1 self-center px-4 md:w-96">
 			<h1 className="py-8 text-center text-3xl">Congratulations!</h1>
-			<p className="text-lg py-1">Good job! See you in a couple days</p>
+			<p className="py-1 text-lg">Good job! See you in a couple days</p>
 			{/* TODO: random text emoji */}
-			<p className="text-lg py-1">(˵¯͒〰¯͒˵)</p>
+			<p className="py-1 text-lg">(˵¯͒〰¯͒˵)</p>
 			{/* TODO: random quotes */}
-            <p className="text-lg py-1">Inspirational quote 2</p>
+			<p className="py-1 text-lg">Inspirational quote 2</p>
 		</main>
 	);
 }

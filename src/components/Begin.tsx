@@ -22,7 +22,7 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 
 	if (user.firstTime) {
 		return (
-			<main className="flex-1">
+			<main className="flex-1 md:w-96 self-center">
 				<div className="px-4">
 					<h1 className="py-8 text-center text-3xl">Welcome to c25k!</h1>
 					<form className="flex flex-col gap-6" action="" onSubmit={onSubmit}>
@@ -53,7 +53,7 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 		);
 	} else {
 		return (
-			<main className="flex-1">
+			<main className="flex-1 md:w-96 self-center">
 				<div className='px-4'>
 					<h1 className="py-8 text-center text-3xl">
 						{/* FIXME: make this look nicer */}
