@@ -12,7 +12,7 @@ type BeginProps = {
 function Begin({ setState, user, setUser, session }: BeginProps) {
 	const [name, setName] = useState('');
 	const [quote, setQuote] = useState(() => {
-		const quoteIndex = Math.floor(Math.random() * (beginQuotes.length - 1));
+		const quoteIndex = Math.floor(Math.random() * beginQuotes.length);
 		return beginQuotes[quoteIndex];
 	});
 
@@ -73,10 +73,12 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 						!
 					</h1>
 
-					<p className="text-lg py-1">Run: {user.sessionIndex + 1}/27</p>
-					<p className="text-lg py-1">Duration: {Math.ceil(session.duration / 60)} minutes</p>
-					{/* TODO: format quote, prob extract to its own component */}
-					<p className="text-lg py-1">{quote}</p>
+					<div className="flex flex-col gap-2">
+						<p className="text-lg">Run: {user.sessionIndex + 1}/27</p>
+						<p className="text-lg">Duration: {Math.ceil(session.duration / 60)} minutes</p>
+						{/* TODO: format quote, prob extract to its own component */}
+						<p className="rounded-md bg-crust px-4 py-2 text-lg">{quote}</p>
+					</div>
 
 					<div className='flex flex-col py-8'>
 						<button

@@ -9,11 +9,11 @@ type EndProps = {
 
 function End({ setUser }: EndProps) {
 	const [emoji, setEmoji] = useState(() => {
-		const emojiIndex = Math.floor(Math.random() * (textEmojis.length - 1));
+		const emojiIndex = Math.floor(Math.random() * textEmojis.length);
 		return textEmojis[emojiIndex];
 	});
 	const [quote, setQuote] = useState(() => {
-		const quoteIndex = Math.floor(Math.random() * (endQuotes.length - 1));
+		const quoteIndex = Math.floor(Math.random() *endQuotes.length);
 		return endQuotes[quoteIndex];
 	});
 
@@ -31,9 +31,11 @@ function End({ setUser }: EndProps) {
 	return (
 		<main className="flex-1 px-4 md:w-96 md:self-center">
 			<h1 className="py-8 text-center text-3xl">Congratulations!</h1>
-			<p className="py-1 text-lg">Good job! See you in a couple days</p>
-			<p className="py-1 text-lg">{emoji}</p>
-			<p className="py-1 text-lg">{quote}</p>
+			<div className="flex flex-col gap-2">
+				<p className="text-lg">Good job! See you in a couple days</p>
+				<p className="text-lg">{emoji}</p>
+				<p className="rounded-md bg-crust px-4 py-2 text-lg">{quote}</p>
+			</div>
 		</main>
 	);
 }
