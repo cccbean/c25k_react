@@ -5,7 +5,18 @@ export default {
 		fontFamily: {
 			noto: ['Noto Sans', 'system-ui', 'sans-serif'],
 		},
-		extend: {},
+		extend: {
+			keyframes: {
+				wavy: {
+					'0%, 100%': {transform: 'translateY(0px)'},
+					'50%': {transform: 'translateY(-15px)'},
+				}
+			},
+			animation: {
+				'wavy-walk': 'wavy 2.5s ease infinite',
+				'wavy-run': 'wavy 1.5s ease infinite',
+			}
+		},
 	},
 	plugins: [
 		require('@catppuccin/tailwindcss'),

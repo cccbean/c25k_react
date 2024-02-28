@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { session, state } from '../App';
 
 type TimerProps = {
@@ -15,6 +15,8 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 	const minutes = Math.floor(seconds / 60);
 	const progress = 100 - (seconds / session.routine[routineIndex][1]) * 100;
 
+	const animationP = useRef<HTMLParagraphElement>(null);
+
 	useEffect(() => {
 		if (seconds > 0) {
 			const timeout = setTimeout(() => {
@@ -22,12 +24,12 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 			}, 1000);
 			return () => clearTimeout(timeout);
 		} else {
-            if (routineIndex < session.routine.length - 1) {
-                setRoutineIndex((prevIndex) => prevIndex + 1);
-            } else {
-                setState('end');
-            }
-        }
+			if (routineIndex < session.routine.length - 1) {
+				setRoutineIndex((prevIndex) => prevIndex + 1);
+			} else {
+				setState('end');
+			}
+		}
 	}, [seconds]);
 
 	useEffect(() => {
@@ -37,18 +39,60 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 			setState('run');
 		}
 
-        setSeconds(session.routine[routineIndex][1]);
+		setSeconds(session.routine[routineIndex][1]);
 	}, [routineIndex]);
+
+	useEffect(() => {
+		if (animationP.current !== null) {
+			const text = animationP.current.textContent;
+			if (text !== null) {
+				animationP.current.innerHTML = text
+					.split('')
+					.map((letter) => {
+						return `<span>${letter}</span>`;
+					})
+					.join('');
+				
+				if (state === 'walk') {
+					Array.from(animationP.current.children).forEach((span, index) => {
+						// FIXME: may have to clear timeouts
+						setTimeout(
+							() => {
+								span.classList.add('inline-block');
+								span.classList.add('animate-wavy-walk');
+							},
+							index * 60 + 200
+						);
+					});
+				} else {
+					Array.from(animationP.current.children).forEach((span, index) => {
+						setTimeout(
+							() => {
+								span.classList.add('inline-block');
+								span.classList.add('animate-wavy-run');
+							},
+							index * 60 + 200
+						);
+					});
+				}
+				
+			}
+		}
+	}, [animationP, state]);
 
 	return (
 		// FIXME: timer has a fixed width and height which can go off screen
 		<main className="relative grid flex-1 place-items-center">
 			<div className="flex flex-col gap-6">
 				<h1 className="text-center text-4xl">{state === 'walk' ? 'Walk' : 'Run'}</h1>
+
 				<p className="text-9xl">
 					{minutes}:{`${seconds - minutes * 60}`.padStart(2, '0')}
 				</p>
-				<p className="text-center">animation placeholder</p>
+
+				<p className="text-center text-2xl translate-y-[15px]" ref={animationP}>
+					{'ε=ε=┏(>_<)┛'}
+				</p>
 			</div>
 
 			{state === 'walk' && (
