@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { state, user } from '../App';
 import ExplanationModal from './ExplanationModal';
 import AttributionsModal from './AttributionsModal';
@@ -13,35 +13,42 @@ function Header({ state, user, setUser }: HeaderProps) {
 	const settingsModal = useRef<HTMLDialogElement>(null);
 
     // TODO: extract logic to a custom hook, maybe
-	let xStart: number | null = null;
-	const handleTouchStart = (e:TouchEvent) => {
-		xStart = e.touches[0].clientX;
-	};
+    useEffect(() => {
+        let xStart: number | null = null;
+        const handleTouchStart = (e:TouchEvent) => {
+            xStart = e.touches[0].clientX;
+        };
+    
+        const handleTouchMove = (e:TouchEvent) => {
+            if (xStart === null) {
+                return;
+            }
+    
+            const xEnd = e.touches[0].clientX;
+    
+            const xDiff = xStart - xEnd;
+    
+            if (xDiff > 0) {
+                settingsModal.current?.showModal();
+                settingsModal.current?.classList.remove('translate-x-[100%]');
+            } else {
+                settingsModal.current?.classList.add('translate-x-[100%]');
+                setTimeout(() => {
+                    settingsModal.current?.close();
+                }, 160);
+            }
+    
+            xStart = null;
+        };
+    
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchmove', handleTouchMove);
 
-	const handleTouchMove = (e:TouchEvent) => {
-		if (xStart === null) {
-			return;
-		}
-
-		const xEnd = e.touches[0].clientX;
-
-		const xDiff = xStart - xEnd;
-
-		if (xDiff > 0) {
-			settingsModal.current?.showModal();
-			settingsModal.current?.classList.remove('translate-x-[100%]');
-		} else {
-			settingsModal.current?.classList.add('translate-x-[100%]');
-			setTimeout(() => {
-				settingsModal.current?.close();
-			}, 160);
-		}
-
-		xStart = null;
-	};
-
-	document.addEventListener('touchstart', handleTouchStart);
-	document.addEventListener('touchmove', handleTouchMove);
+        return () => {
+            document.removeEventListener('touchstart', handleTouchStart)
+            document.removeEventListener('touchmove', handleTouchMove)
+        }
+    }, [])
 
 	return (
 		<header className="flex items-center justify-between border-b border-current p-4">
