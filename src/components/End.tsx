@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { user } from '../App';
 import { textEmojis } from '../lib/textEmojis';
 import { endQuotes } from '../lib/quotes';
