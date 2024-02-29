@@ -137,7 +137,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex, user }
 				{progress}%
 			</progress>
 
-			{/* FIXME: sound attribution */}
+			{/* FIXME: sound cuts off on bluetooth devices, add dead sound to beginning and end */}
 			<audio src={claveWalk} ref={walkAudio}></audio>
 			<audio src={claveRun} ref={runAudio}></audio>
 		</main>
