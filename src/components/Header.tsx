@@ -14,11 +14,11 @@ function Header({ state, user, setUser }: HeaderProps) {
 
     // TODO: extract logic to a custom hook, maybe
 	let xStart: number | null = null;
-	const handleTouchStart = (e:React.TouchEvent) => {
+	const handleTouchStart = (e:TouchEvent) => {
 		xStart = e.touches[0].clientX;
 	};
 
-	const handleTouchMove = (e:React.TouchEvent) => {
+	const handleTouchMove = (e:TouchEvent) => {
 		if (xStart === null) {
 			return;
 		}
