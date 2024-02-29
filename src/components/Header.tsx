@@ -12,6 +12,37 @@ type HeaderProps = {
 function Header({ state, user, setUser }: HeaderProps) {
 	const settingsModal = useRef<HTMLDialogElement>(null);
 
+    // TODO: extract logic to a custom hook, maybe
+	let xStart: number | null = null;
+	const handleTouchStart = (e) => {
+		xStart = e.touches[0].clientX;
+	};
+
+	const handleTouchMove = (e) => {
+		if (xStart === null) {
+			return;
+		}
+
+		const xEnd = e.touches[0].clientX;
+
+		const xDiff = xStart - xEnd;
+
+		if (xDiff > 0) {
+			settingsModal.current?.showModal();
+			settingsModal.current?.classList.remove('translate-x-[100%]');
+		} else {
+			settingsModal.current?.classList.add('translate-x-[100%]');
+			setTimeout(() => {
+				settingsModal.current?.close();
+			}, 160);
+		}
+
+		xStart = null;
+	};
+
+	document.addEventListener('touchstart', handleTouchStart);
+	document.addEventListener('touchmove', handleTouchMove);
+
 	return (
 		<header className="flex items-center justify-between border-b border-current p-4">
 			<button onClick={() => location.reload()}>
@@ -77,8 +108,8 @@ function Header({ state, user, setUser }: HeaderProps) {
 							</g>
 						</svg>
 					</button>
-                    
-                    {/* TODO: make settings look nicer */}
+
+					{/* TODO: make settings look nicer */}
 					<dialog
 						className="mocha mr-0 h-full max-h-none w-[90%] translate-x-[100%] rounded-l-xl bg-base font-noto text-mauve transition-transform"
 						ref={settingsModal}
@@ -183,7 +214,8 @@ function Header({ state, user, setUser }: HeaderProps) {
 								className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
 								autoFocus
 								onClick={() => {
-                                    settingsModal.current?.classList.add('translate-x-[100%]');
+									settingsModal.current?.classList.add('translate-x-[100%]');
+									g;
 									setTimeout(() => {
 										settingsModal.current?.close();
 									}, 160);
