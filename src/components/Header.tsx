@@ -77,7 +77,8 @@ function Header({ state, user, setUser }: HeaderProps) {
 							</g>
 						</svg>
 					</button>
-
+                    
+                    {/* TODO: make settings look nicer */}
 					<dialog
 						className="mocha mr-0 h-full max-h-none w-[90%] translate-x-[100%] rounded-l-xl bg-base font-noto text-mauve transition-transform"
 						ref={settingsModal}
