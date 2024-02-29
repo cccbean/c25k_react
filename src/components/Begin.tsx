@@ -90,7 +90,7 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 						)}
 
 						{/* TODO: prob extract quote to its own component */}
-						<p className="rounded-md bg-crust px-4 py-2 text-lg">{quote}</p>
+						{user.settings.quotes && <p className="rounded-md bg-crust px-4 py-2 text-lg">{quote}</p>}
 					</div>
 
 					<div className="flex flex-col py-8">

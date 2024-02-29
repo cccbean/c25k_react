@@ -133,7 +133,19 @@ function Header({ state, user, setUser }: HeaderProps) {
 									<label htmlFor="">Walk/run animation</label>
 								</div>
 								<div>
-									<input type="checkbox" />
+									<input
+										type="checkbox"
+										checked={user.settings.quotes}
+										onChange={(e) =>
+											setUser((prevUser) => ({
+												...prevUser,
+												settings: {
+													...prevUser.settings,
+													quotes: e.target.checked,
+												},
+											}))
+										}
+									/>
 									<label htmlFor="">Random quotes</label>
 								</div>
 

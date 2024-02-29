@@ -74,7 +74,7 @@ function App() {
 					user={user}
 				/>
 			)}
-			{state === 'end' && <End setUser={setUser} />}
+			{state === 'end' && <End user={user} setUser={setUser} />}
 		</div>
 	);
 }
