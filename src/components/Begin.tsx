@@ -101,17 +101,7 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 						>
 							Begin
 						</button>
-					</div>
-					{/* TODO: just for dev, move to settings tho */}
-					<button
-						className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
-						onClick={() => {
-							localStorage.clear();
-							location.reload();
-						}}
-					>
-						Clear local storage
-					</button>
+					</div>					
 				</div>
 			</main>
 		);

@@ -7,21 +7,23 @@ type HeaderProps = {
 
 function Header({ state }: HeaderProps) {
 	const settingsModal = useRef<HTMLDialogElement>(null);
+	const attributionsModal = useRef<HTMLDialogElement>(null);
+    const explanationModal = useRef<HTMLDialogElement>(null);
 	// TODO: add settings modal
 
 	const handleOpenModal = () => {
 		settingsModal.current?.showModal();
 		settingsModal.current?.classList.add('translate-x-0');
-	}
+	};
 
-	const handleCloseModal = (e: React.MouseEvent<HTMLDialogElement, MouseEvent> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		if (e.target instanceof HTMLDialogElement || e.target instanceof HTMLButtonElement) {
+	const handleCloseModal = (e: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
+		if (e.target instanceof HTMLDialogElement) {
 			settingsModal.current?.classList.remove('translate-x-0');
 			setTimeout(() => {
 				settingsModal.current?.close();
 			}, 160);
 		}
-	}
+	};
 
 	return (
 		<header className="flex items-center justify-between border-b border-current p-4">
@@ -62,9 +64,7 @@ function Header({ state }: HeaderProps) {
 			</button>
 			{state !== 'walk' && state !== 'run' && (
 				<>
-					<button
-						onClick={handleOpenModal}
-					>
+					<button onClick={handleOpenModal}>
 						<svg
 							className="h-12 w-12"
 							width="800px"
@@ -91,11 +91,117 @@ function Header({ state }: HeaderProps) {
 						ref={settingsModal}
 						onClick={handleCloseModal}
 					>
-						<div className="h-full w-full p-8">
-							<h1>Settings</h1>
+						<div className="flex h-full w-full flex-col px-4">
+							<h1 className="py-8 text-center text-3xl">Settings</h1>
+
+							{/* TODO: add these modals */}
+							<div className="flex justify-around">
+								<button className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base" onClick={() => {
+                                    explanationModal.current?.showModal();
+                                }}>
+									What is this?
+								</button>
+                                <dialog
+                                    className='mocha bg-base font-noto text-mauve backdrop:bg-mauve/20 rounded-xl'
+									ref={explanationModal}
+									onClick={(e) => {
+                                        e.stopPropagation();
+										if (e.target instanceof HTMLDialogElement) {
+											explanationModal.current?.close();
+										}
+									}}
+								>
+									<div className='p-8 rounded-xl flex flex-col gap-4'>
+                                        <h1 className="text-center text-3xl">Explanation</h1>
+                                        <p>
+                                            A really thoughtful explanation
+                                        </p>
+                                        <button
+                                                                                className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
+                                            onClick={() => {
+                                                explanationModal.current?.close();
+                                            }}
+                                        >
+                                            Close
+                                        </button>
+                                    </div>
+								</dialog>
+
+								<button
+									className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
+									onClick={() => {
+										attributionsModal.current?.showModal();
+									}}
+								>
+									Attributions
+								</button>
+								<dialog
+                                    className='mocha bg-base font-noto text-mauve backdrop:bg-mauve/20 rounded-xl'
+									ref={attributionsModal}
+									onClick={(e) => {
+                                        e.stopPropagation();
+										if (e.target instanceof HTMLDialogElement) {
+											attributionsModal.current?.close();
+										}
+									}}
+								>
+									<div className='p-8 flex flex-col gap-4'>
+                                        <h1 className="text-center text-3xl">Attributions</h1>
+                                        <p>
+                                            This application uses this sound from freesound.org: "clave_hit07.wav" by
+                                            soundbytez (<a className='underline' href="https://freesound.org/people/soundbytez/sounds/121389/">https://freesound.org/people/soundbytez/sounds/121389/</a>) licensed
+                                            under CCBY 3.0.
+                                        </p>
+                                        <button
+                                                                                className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
+                                            onClick={() => {
+                                                attributionsModal.current?.close();
+                                            }}
+                                        >
+                                            Close
+                                        </button>
+                                    </div>
+								</dialog>
+							</div>
+
+							<div className="rounded-md border border-mauve bg-crust px-4 py-2 text-lg">
+								<div>
+									<input type="checkbox" />
+									<label htmlFor="">Timer radial progress bar</label>
+								</div>
+								<div>
+									<input type="checkbox" />
+									<label htmlFor="">Walk/run animation</label>
+								</div>
+								<div>
+									<input type="checkbox" />
+									<label htmlFor="">Random quotes</label>
+								</div>
+
+								<div>
+									<input type="checkbox" />
+									<label htmlFor="">Random emoticons at end page</label>
+								</div>
+							</div>
+
 							<button
+								className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
+								onClick={() => {
+									localStorage.clear();
+									location.reload();
+								}}
+							>
+								Clear local storage
+							</button>
+							<button
+								className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
 								autoFocus
-								onClick={handleCloseModal}
+								onClick={() => {
+									settingsModal.current?.classList.remove('translate-x-0');
+									setTimeout(() => {
+										settingsModal.current?.close();
+									}, 160);
+								}}
 							>
 								Close
 							</button>
