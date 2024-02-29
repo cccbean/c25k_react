@@ -3,11 +3,15 @@
 An app that automatically incorporates a couch-to-5k-plan so you just run when it tells you to run and walk when it tells you to walk.
 
 ## Todo
-- [ ] add proper settings drawer
-  - [ ] short description modal
-  - [ ] sound attribution modal
-  - [ ] user settings
+- [X] add proper settings drawer
+  - [X] short description modal
+  - [ ] actual description
+  - [X] sound attribution modal
+  - [X] user settings
 - [ ] add more quotes
+
+## Fixes
+- [ ] fix audio issues, files need to be longer since they act weird on bluetooth earbuds
 
 ## Attributions
 This application uses this sound from freesound.org: "clave_hit07.wav" by soundbytez (https://freesound.org/people/soundbytez/sounds/121389/) licensed under CCBY 3.0.
