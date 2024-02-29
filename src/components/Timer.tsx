@@ -85,6 +85,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 
 	useEffect(() => {
 		if (walkAudio.current !== null && runAudio.current !== null) {
+            // TODO: change state if-else to switch statements?
 			if (state === 'walk') {
 				walkAudio.current.play();
 			} else if (state === 'run') {
@@ -130,6 +131,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 				{progress}%
 			</progress>
 
+            {/* FIXME: sound attribution */}
 			<audio src={claveWalk} ref={walkAudio}></audio>
 			<audio src={claveRun} ref={runAudio}></audio>
 		</main>
