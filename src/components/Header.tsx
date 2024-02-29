@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import { state } from '../App';
+import ExplanationModal from './ExplanationModal';
+import AttributionsModal from './AttributionsModal';
 
 type HeaderProps = {
 	state: state;
@@ -7,8 +9,6 @@ type HeaderProps = {
 
 function Header({ state }: HeaderProps) {
 	const settingsModal = useRef<HTMLDialogElement>(null);
-	const attributionsModal = useRef<HTMLDialogElement>(null);
-    const explanationModal = useRef<HTMLDialogElement>(null);
 	// TODO: add settings modal
 
 	const handleOpenModal = () => {
@@ -96,72 +96,9 @@ function Header({ state }: HeaderProps) {
 
 							{/* TODO: add these modals */}
 							<div className="flex justify-around">
-								<button className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base" onClick={() => {
-                                    explanationModal.current?.showModal();
-                                }}>
-									What is this?
-								</button>
-                                <dialog
-                                    className='mocha bg-base font-noto text-mauve backdrop:bg-mauve/20 rounded-xl'
-									ref={explanationModal}
-									onClick={(e) => {
-                                        e.stopPropagation();
-										if (e.target instanceof HTMLDialogElement) {
-											explanationModal.current?.close();
-										}
-									}}
-								>
-									<div className='p-8 rounded-xl flex flex-col gap-4'>
-                                        <h1 className="text-center text-3xl">Explanation</h1>
-                                        <p>
-                                            A really thoughtful explanation
-                                        </p>
-                                        <button
-                                                                                className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
-                                            onClick={() => {
-                                                explanationModal.current?.close();
-                                            }}
-                                        >
-                                            Close
-                                        </button>
-                                    </div>
-								</dialog>
+								<ExplanationModal />
 
-								<button
-									className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
-									onClick={() => {
-										attributionsModal.current?.showModal();
-									}}
-								>
-									Attributions
-								</button>
-								<dialog
-                                    className='mocha bg-base font-noto text-mauve backdrop:bg-mauve/20 rounded-xl'
-									ref={attributionsModal}
-									onClick={(e) => {
-                                        e.stopPropagation();
-										if (e.target instanceof HTMLDialogElement) {
-											attributionsModal.current?.close();
-										}
-									}}
-								>
-									<div className='p-8 flex flex-col gap-4'>
-                                        <h1 className="text-center text-3xl">Attributions</h1>
-                                        <p>
-                                            This application uses this sound from freesound.org: "clave_hit07.wav" by
-                                            soundbytez (<a className='underline' href="https://freesound.org/people/soundbytez/sounds/121389/">https://freesound.org/people/soundbytez/sounds/121389/</a>) licensed
-                                            under CCBY 3.0.
-                                        </p>
-                                        <button
-                                                                                className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
-                                            onClick={() => {
-                                                attributionsModal.current?.close();
-                                            }}
-                                        >
-                                            Close
-                                        </button>
-                                    </div>
-								</dialog>
+								<AttributionsModal />
 							</div>
 
 							<div className="rounded-md border border-mauve bg-crust px-4 py-2 text-lg">
