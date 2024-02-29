@@ -106,18 +106,30 @@ function Header({ state, user, setUser }: HeaderProps) {
 										checked={user.settings.radialTimer}
 										onChange={(e) =>
 											setUser((prevUser) => ({
-                                                ...prevUser,
-                                                settings: {
-                                                    ...prevUser.settings,
-                                                    radialTimer: e.target.checked
-                                                }
+												...prevUser,
+												settings: {
+													...prevUser.settings,
+													radialTimer: e.target.checked,
+												},
 											}))
 										}
 									/>
 									<label htmlFor="">Timer radial progress bar</label>
 								</div>
 								<div>
-									<input type="checkbox" />
+									<input
+										type="checkbox"
+										checked={user.settings.animation}
+										onChange={(e) =>
+											setUser((prevUser) => ({
+												...prevUser,
+												settings: {
+													...prevUser.settings,
+													animation: e.target.checked,
+												},
+											}))
+										}
+									/>
 									<label htmlFor="">Walk/run animation</label>
 								</div>
 								<div>

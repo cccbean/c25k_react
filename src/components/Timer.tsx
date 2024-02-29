@@ -9,7 +9,7 @@ type TimerProps = {
 	session: session;
 	routineIndex: number;
 	setRoutineIndex: React.Dispatch<React.SetStateAction<number>>;
-    user: user;
+	user: user;
 };
 
 // TODO: fix flickering between state changes
@@ -48,7 +48,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex, user }
 	}, [routineIndex]);
 
 	useEffect(() => {
-		if (animationP.current !== null) {
+		if (animationP.current !== null && user.settings.animation) {
 			const text = animationP.current.textContent;
 			if (text !== null) {
 				animationP.current.innerHTML = text
@@ -86,7 +86,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex, user }
 
 	useEffect(() => {
 		if (walkAudio.current !== null && runAudio.current !== null) {
-            // TODO: change state if-else to switch statements?
+			// TODO: change state if-else to switch statements?
 			if (state === 'walk') {
 				walkAudio.current.play();
 			} else if (state === 'run') {
@@ -104,9 +104,14 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex, user }
 					{minutes}:{`${seconds - minutes * 60}`.padStart(2, '0')}
 				</p>
 
-				<p className="translate-y-[15px] text-center text-2xl" ref={animationP}>
-					{'ε=ε=┏(>_<)┛'}
-				</p>
+				{user.settings.animation ? (
+					<p className="translate-y-[15px] text-center text-2xl" ref={animationP}>
+						{'ε=ε=┏(>_<)┛'}
+					</p>
+				) : (
+                    // TODO: the layout was weird without a third element here
+					<p></p>
+				)}
 			</div>
 
 			{state === 'walk' && user.settings.radialTimer && (
@@ -132,7 +137,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex, user }
 				{progress}%
 			</progress>
 
-            {/* FIXME: sound attribution */}
+			{/* FIXME: sound attribution */}
 			<audio src={claveWalk} ref={walkAudio}></audio>
 			<audio src={claveRun} ref={runAudio}></audio>
 		</main>
