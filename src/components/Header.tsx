@@ -13,42 +13,42 @@ function Header({ state, user, setUser }: HeaderProps) {
 	const settingsModal = useRef<HTMLDialogElement>(null);
 
     // TODO: extract logic to a custom hook, maybe
-    // useEffect(() => {
-    //     let xStart: number | null = null;
-    //     const handleTouchStart = (e:TouchEvent) => {
-    //         xStart = e.touches[0].clientX;
-    //     };
+    useEffect(() => {
+        let xStart: number | null = null;
+        const handleTouchStart = (e:TouchEvent) => {
+            xStart = e.touches[0].clientX;
+        };
     
-    //     const handleTouchMove = (e:TouchEvent) => {
-    //         if (xStart === null) {
-    //             return;
-    //         }
+        const handleTouchMove = (e:TouchEvent) => {
+            if (xStart === null) {
+                return;
+            }
     
-    //         const xEnd = e.touches[0].clientX;
+            const xEnd = e.touches[0].clientX;
     
-    //         const xDiff = xStart - xEnd;
+            const xDiff = xStart - xEnd;
     
-    //         if (xDiff > 0) {
-    //             settingsModal.current?.showModal();
-    //             settingsModal.current?.classList.remove('translate-x-[100%]');
-    //         } else {
-    //             settingsModal.current?.classList.add('translate-x-[100%]');
-    //             setTimeout(() => {
-    //                 settingsModal.current?.close();
-    //             }, 160);
-    //         }
+            if (xDiff > 0) {
+                settingsModal.current?.showModal();
+                settingsModal.current?.classList.remove('translate-x-[100%]');
+            } else {
+                settingsModal.current?.classList.add('translate-x-[100%]');
+                setTimeout(() => {
+                    settingsModal.current?.close();
+                }, 160);
+            }
     
-    //         xStart = null;
-    //     };
+            xStart = null;
+        };
     
-    //     document.addEventListener('touchstart', handleTouchStart);
-    //     document.addEventListener('touchmove', handleTouchMove);
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchmove', handleTouchMove);
 
-    //     return () => {
-    //         document.removeEventListener('touchstart', handleTouchStart)
-    //         document.removeEventListener('touchmove', handleTouchMove)
-    //     }
-    // }, [])
+        return () => {
+            document.removeEventListener('touchstart', handleTouchStart)
+            document.removeEventListener('touchmove', handleTouchMove)
+        }
+    }, [])
 
 	return (
 		<header className="flex items-center justify-between border-b border-current p-4">
@@ -222,7 +222,6 @@ function Header({ state, user, setUser }: HeaderProps) {
 								autoFocus
 								onClick={() => {
 									settingsModal.current?.classList.add('translate-x-[100%]');
-									g;
 									setTimeout(() => {
 										settingsModal.current?.close();
 									}, 160);
