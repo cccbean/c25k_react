@@ -30,6 +30,7 @@ function App() {
 	});
 	const [state, setState] = useState<state>('begin');
 	const [routineIndex, setRoutineIndex] = useState(0);
+	// FIXME: what happens when sessionIndex > c25kPlan.length - 1?
 	const session = c25kPlan[user.sessionIndex];
 
 	useEffect(() => {

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { session, state } from '../App';
+import claveWalk from '../../public/audio/clave-walk.wav';
+import claveRun from '../../public/audio/clave-run.wav';
 
 type TimerProps = {
 	state: state;
@@ -16,6 +18,8 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 	const progress = 100 - (seconds / session.routine[routineIndex][1]) * 100;
 
 	const animationP = useRef<HTMLParagraphElement>(null);
+	const walkAudio = useRef<HTMLAudioElement>(null);
+	const runAudio = useRef<HTMLAudioElement>(null);
 
 	useEffect(() => {
 		if (seconds > 0) {
@@ -52,7 +56,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 						return `<span>${letter}</span>`;
 					})
 					.join('');
-				
+
 				if (state === 'walk') {
 					Array.from(animationP.current.children).forEach((span, index) => {
 						// FIXME: may have to clear timeouts
@@ -75,10 +79,19 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 						);
 					});
 				}
-				
 			}
 		}
 	}, [animationP, state]);
+
+	useEffect(() => {
+		if (walkAudio.current !== null && runAudio.current !== null) {
+			if (state === 'walk') {
+				walkAudio.current.play();
+			} else if (state === 'run') {
+				runAudio.current.play();
+			}
+		}
+	}, [walkAudio, runAudio, state]);
 
 	return (
 		<main className="relative grid flex-1 place-items-center">
@@ -89,14 +102,14 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 					{minutes}:{`${seconds - minutes * 60}`.padStart(2, '0')}
 				</p>
 
-				<p className="text-center text-2xl translate-y-[15px]" ref={animationP}>
+				<p className="translate-y-[15px] text-center text-2xl" ref={animationP}>
 					{'ε=ε=┏(>_<)┛'}
 				</p>
 			</div>
 
 			{state === 'walk' && (
 				<div
-					className={`absolute -z-10 h-[95vw] w-[95vw] rounded-full`}
+					className={`absolute -z-10 h-[95vw] w-[95vw] rounded-full md:h-96 md:w-96`}
 					style={{
 						background: `radial-gradient(closest-side,#1E1E2E 95%,transparent 96% 100%),conic-gradient(#89B4FA4D ${progress}%,#89B4FA 0)`,
 					}}
@@ -105,7 +118,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 
 			{state === 'run' && (
 				<div
-					className={`absolute -z-10 h-[95vw] w-[95vw] rounded-full`}
+					className={`absolute -z-10 h-[95vw] w-[95vw] rounded-full md:h-96 md:w-96`}
 					style={{
 						background: `radial-gradient(closest-side,#1E1E2E 95%,transparent 96% 100%),conic-gradient(#F38BA84D ${progress}%,#F38BA8 0)`,
 					}}
@@ -116,6 +129,9 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 			<progress className="invisible absolute" value={`${progress}`} max="100">
 				{progress}%
 			</progress>
+
+			<audio src={claveWalk} ref={walkAudio}></audio>
+			<audio src={claveRun} ref={runAudio}></audio>
 		</main>
 	);
 }
