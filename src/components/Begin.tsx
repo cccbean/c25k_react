@@ -17,10 +17,9 @@ function Begin({ setState, user, setUser, session }: BeginProps) {
 
 	const onSubmit = () => {
 		setUser((prevUser) => ({
+			...prevUser,
 			name: name,
-			sessionIndex: prevUser.sessionIndex,
-			lastRun: prevUser.lastRun,
-			firstTime: false,
+			firstTime: false
 		}));
 	};
 

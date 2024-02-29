@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { session, state } from '../App';
+import { session, state, user } from '../App';
 import claveWalk from '../../public/audio/clave-walk.wav';
 import claveRun from '../../public/audio/clave-run.wav';
 
@@ -9,10 +9,11 @@ type TimerProps = {
 	session: session;
 	routineIndex: number;
 	setRoutineIndex: React.Dispatch<React.SetStateAction<number>>;
+    user: user;
 };
 
 // TODO: fix flickering between state changes
-function Timer({ state, setState, session, routineIndex, setRoutineIndex }: TimerProps) {
+function Timer({ state, setState, session, routineIndex, setRoutineIndex, user }: TimerProps) {
 	const [seconds, setSeconds] = useState(session.routine[routineIndex][1]);
 	const minutes = Math.floor(seconds / 60);
 	const progress = 100 - (seconds / session.routine[routineIndex][1]) * 100;
@@ -108,7 +109,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 				</p>
 			</div>
 
-			{state === 'walk' && (
+			{state === 'walk' && user.settings.radialTimer && (
 				<div
 					className={`absolute -z-10 h-[95vw] w-[95vw] rounded-full md:h-96 md:w-96`}
 					style={{
@@ -117,7 +118,7 @@ function Timer({ state, setState, session, routineIndex, setRoutineIndex }: Time
 				></div>
 			)}
 
-			{state === 'run' && (
+			{state === 'run' && user.settings.radialTimer && (
 				<div
 					className={`absolute -z-10 h-[95vw] w-[95vw] rounded-full md:h-96 md:w-96`}
 					style={{

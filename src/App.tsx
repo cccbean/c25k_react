@@ -10,11 +10,18 @@ export type session = {
 	routine: ['w' | 'r', number][];
 	duration: number;
 };
+export type settings = {
+	radialTimer: boolean;
+	animation: boolean;
+	quotes: boolean;
+	emoticons: boolean;
+};
 export type user = {
 	name: string;
 	sessionIndex: number;
 	lastRun: Date | null;
 	firstTime: boolean;
+	settings: settings;
 };
 
 function App() {
@@ -25,7 +32,18 @@ function App() {
 		if (savedUser) {
 			return JSON.parse(savedUser);
 		} else {
-			return { name: '', sessionIndex: 0, lastRun: null, firstTime: true };
+			return {
+				name: '',
+				sessionIndex: 0,
+				lastRun: null,
+				firstTime: true,
+				settings: {
+					radialTimer: true,
+					animation: true,
+					quotes: true,
+					emoticons: true,
+				},
+			};
 		}
 	});
 	const [state, setState] = useState<state>('begin');
@@ -42,7 +60,7 @@ function App() {
 		<div
 			className={`flex h-screen flex-col ${state === 'run' && ' text-red'} ${state === 'walk' && 'text-blue'}`}
 		>
-			<Header state={state} />
+			<Header state={state} user={user} setUser={setUser} />
 			{state === 'begin' && (
 				<Begin setState={setState} user={user} setUser={setUser} session={session} />
 			)}
@@ -53,6 +71,7 @@ function App() {
 					session={session}
 					routineIndex={routineIndex}
 					setRoutineIndex={setRoutineIndex}
+					user={user}
 				/>
 			)}
 			{state === 'end' && <End setUser={setUser} />}

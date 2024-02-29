@@ -1,29 +1,16 @@
 import { useRef } from 'react';
-import { state } from '../App';
+import { state, user } from '../App';
 import ExplanationModal from './ExplanationModal';
 import AttributionsModal from './AttributionsModal';
 
 type HeaderProps = {
 	state: state;
+	user: user;
+	setUser: React.Dispatch<React.SetStateAction<user>>;
 };
 
-function Header({ state }: HeaderProps) {
+function Header({ state, user, setUser }: HeaderProps) {
 	const settingsModal = useRef<HTMLDialogElement>(null);
-	// TODO: add settings modal
-
-	const handleOpenModal = () => {
-		settingsModal.current?.showModal();
-		settingsModal.current?.classList.add('translate-x-0');
-	};
-
-	const handleCloseModal = (e: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
-		if (e.target instanceof HTMLDialogElement) {
-			settingsModal.current?.classList.remove('translate-x-0');
-			setTimeout(() => {
-				settingsModal.current?.close();
-			}, 160);
-		}
-	};
 
 	return (
 		<header className="flex items-center justify-between border-b border-current p-4">
@@ -64,7 +51,12 @@ function Header({ state }: HeaderProps) {
 			</button>
 			{state !== 'walk' && state !== 'run' && (
 				<>
-					<button onClick={handleOpenModal}>
+					<button
+						onClick={() => {
+							settingsModal.current?.showModal();
+							settingsModal.current?.classList.add('translate-x-0');
+						}}
+					>
 						<svg
 							className="h-12 w-12"
 							width="800px"
@@ -89,12 +81,18 @@ function Header({ state }: HeaderProps) {
 					<dialog
 						className="mocha mr-0 h-full max-h-none w-[90%] translate-x-[100%] rounded-l-xl bg-base font-noto text-mauve transition-transform"
 						ref={settingsModal}
-						onClick={handleCloseModal}
+						onClick={(e) => {
+							if (e.target instanceof HTMLDialogElement) {
+								settingsModal.current?.classList.remove('translate-x-0');
+								setTimeout(() => {
+									settingsModal.current?.close();
+								}, 160);
+							}
+						}}
 					>
 						<div className="flex h-full w-full flex-col px-4">
 							<h1 className="py-8 text-center text-3xl">Settings</h1>
 
-							{/* TODO: add these modals */}
 							<div className="flex justify-around">
 								<ExplanationModal />
 
@@ -103,7 +101,19 @@ function Header({ state }: HeaderProps) {
 
 							<div className="rounded-md border border-mauve bg-crust px-4 py-2 text-lg">
 								<div>
-									<input type="checkbox" />
+									<input
+										type="checkbox"
+										checked={user.settings.radialTimer}
+										onChange={(e) =>
+											setUser((prevUser) => ({
+                                                ...prevUser,
+                                                settings: {
+                                                    ...prevUser.settings,
+                                                    radialTimer: e.target.checked
+                                                }
+											}))
+										}
+									/>
 									<label htmlFor="">Timer radial progress bar</label>
 								</div>
 								<div>
@@ -117,10 +127,11 @@ function Header({ state }: HeaderProps) {
 
 								<div>
 									<input type="checkbox" />
-									<label htmlFor="">Random emoticons at end page</label>
+									<label htmlFor="">Random emoticons</label>
 								</div>
 							</div>
 
+							{/* TODO: make this have a modal popup warning the user */}
 							<button
 								className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
 								onClick={() => {
@@ -130,6 +141,7 @@ function Header({ state }: HeaderProps) {
 							>
 								Clear local storage
 							</button>
+
 							<button
 								className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
 								autoFocus
