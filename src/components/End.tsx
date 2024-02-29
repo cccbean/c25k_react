@@ -14,7 +14,7 @@ function End({ setUser }: EndProps) {
 	const quoteIndex = Math.floor(Math.random() *endQuotes.length);
 	const quote = endQuotes[quoteIndex]
 
-	// FIXME: currently runs twice bc of strict mode so sessionIndex goes up twice instead of once
+	// FIXME: currently runs twice bc of strict mode so sessionIndex goes up twice instead of once, not an issue once deployed
 	useEffect(() => {
 		const currentDate = new Date();
 		setUser((prevUser) => ({
