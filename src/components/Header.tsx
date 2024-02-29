@@ -150,7 +150,19 @@ function Header({ state, user, setUser }: HeaderProps) {
 								</div>
 
 								<div>
-									<input type="checkbox" />
+									<input
+										type="checkbox"
+										checked={user.settings.emoticons}
+										onChange={(e) =>
+											setUser((prevUser) => ({
+												...prevUser,
+												settings: {
+													...prevUser.settings,
+													emoticons: e.target.checked,
+												},
+											}))
+										}
+									/>
 									<label htmlFor="">Random emoticons</label>
 								</div>
 							</div>

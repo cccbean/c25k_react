@@ -31,7 +31,7 @@ function End({ user, setUser }: EndProps) {
 			<div className="flex flex-col gap-2">
 				<p className="text-lg">Good job! See you in a couple days</p>
 				{user.settings.quotes && <p className="rounded-md bg-crust px-4 py-2 text-lg">{quote}</p>}
-				<p className="text-lg">{emoji}</p>
+				{user.settings.emoticons && <p className="text-lg">{emoji}</p>}
 			</div>
 		</main>
 	);
