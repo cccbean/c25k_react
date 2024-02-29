@@ -54,7 +54,7 @@ function Header({ state, user, setUser }: HeaderProps) {
 					<button
 						onClick={() => {
 							settingsModal.current?.showModal();
-							settingsModal.current?.classList.add('translate-x-0');
+							settingsModal.current?.classList.remove('translate-x-[100%]');
 						}}
 					>
 						<svg
@@ -84,7 +84,7 @@ function Header({ state, user, setUser }: HeaderProps) {
 						ref={settingsModal}
 						onClick={(e) => {
 							if (e.target instanceof HTMLDialogElement) {
-								settingsModal.current?.classList.remove('translate-x-0');
+								settingsModal.current?.classList.add('translate-x-[100%]');
 								setTimeout(() => {
 									settingsModal.current?.close();
 								}, 160);
