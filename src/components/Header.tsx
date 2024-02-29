@@ -183,7 +183,7 @@ function Header({ state, user, setUser }: HeaderProps) {
 								className="rounded-full border border-current px-4 py-2 font-bold hover:bg-mauve hover:text-base"
 								autoFocus
 								onClick={() => {
-									settingsModal.current?.classList.remove('translate-x-0');
+                                    settingsModal.current?.classList.add('translate-x-[100%]');
 									setTimeout(() => {
 										settingsModal.current?.close();
 									}, 160);
