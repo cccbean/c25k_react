@@ -26,7 +26,7 @@ export type user = {
 
 function App() {
 	// in case of emergency
-	// localStorage.clear();
+	localStorage.clear();
 	const [user, setUser] = useState<user>(() => {
 		const savedUser = localStorage.getItem('user');
 		if (savedUser) {
